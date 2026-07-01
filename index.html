@@ -213,9 +213,12 @@ function seed(){
   ];
   return {courses,talents,enroll};
 }
+let MEM=null;
+function lsGet(k){try{return localStorage.getItem(k);}catch(e){return MEM;}}
+function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){MEM=v;}}
+function load(){try{const raw=lsGet(KEY);const d=raw?JSON.parse(raw):null;if(d&&d.courses)return d;}catch(e){}const s=seed();save(s);return s;}
+function save(d){DB=d||DB;lsSet(KEY,JSON.stringify(DB));}
 let DB=load();
-function load(){try{const d=JSON.parse(localStorage.getItem(KEY));if(d&&d.courses)return d;}catch(e){}const s=seed();save(s);return s;}
-function save(d){DB=d||DB;localStorage.setItem(KEY,JSON.stringify(DB));}
 
 function getEnroll(tid,cid){return DB.enroll.find(e=>e.tid===tid&&e.cid===cid);}
 function prog(e){const c=courseById(e.cid);if(!c)return 0;const tot=c.modules.length;return tot?Math.round((e.done||[]).length/tot*100):0;}
@@ -413,7 +416,7 @@ function closeModal(){document.getElementById('modal').classList.remove('open');
 document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')closeModal();};
 document.getElementById('globalSearch').addEventListener('keydown',e=>{if(e.key==='Enter'){render('courses');setTimeout(()=>{const s=document.getElementById('cSearch');if(s){s.value=e.target.value;courseList();}},0);}});
 
-render('dashboard');
+try{render('dashboard');}catch(err){var vv=document.getElementById('view');if(vv)vv.innerHTML='<div class="card"><b>Terjadi error:</b><br><code>'+((err&&err.message)||err)+'</code></div>';}
 </script>
 </body>
 </html>
