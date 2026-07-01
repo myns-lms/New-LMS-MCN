@@ -125,7 +125,7 @@
       <a data-view="path">🧭 Learning Path</a>
       <a data-view="reports">📁 Reports</a>
       <span class="sp"></span>
-      <a onclick="if(confirm('Reset semua data ke contoh awal?')){localStorage.removeItem(KEY);location.reload();}">♻️ Reset Data</a>
+      <a onclick="if(confirm('Reset semua data ke contoh awal?')){try{localStorage.removeItem(KEY)}catch(e){}MEM=null;location.reload();}">♻️ Reset Data</a>
     </nav>
   </aside>
 
@@ -144,7 +144,8 @@
 <div class="modal" id="modal"><div class="box" id="modalBox"></div></div>
 
 <script>
-const KEY='mcn_lms_combined_v2';
+window.onerror=function(msg,src,ln){var v=document.getElementById('view');if(v){v.innerHTML='<div class="card"><b>Terjadi error:</b><br><code>'+msg+' (baris '+ln+')</code></div>';}return false;};
+const KEY='mcn_lms_combined_v3';
 const CATS=['Content Strategy','Monetisasi','Brand Deal','Editing & Produksi','Algoritma Platform','Personal Branding','Legal & Kontrak'];
 const LEVELS=['Basic','Intermediate','Advanced'];
 const PLATFORMS=['TikTok','YouTube','Instagram','Twitch','Multi'];
@@ -155,46 +156,46 @@ function id(){return Math.random().toString(36).slice(2,9)}
 function seed(){
   const courses=[
     {id:id(),title:'Onboarding Talent MCN',cat:'Personal Branding',level:'Basic',hours:2,desc:'Pengenalan sistem MCN, hak & kewajiban talent, cara kerja bagi hasil.',modules:[
-      {t:'Apa itu MCN',body:'MCN (Multi-Channel Network) adalah perusahaan yang bermitra dengan banyak creator untuk membantu pertumbuhan channel, monetisasi, dan manajemen.\nMCN menyediakan dukungan seperti optimasi konten, koneksi ke brand, perlindungan hak cipta, dan pelatihan.\nSebagai talent, kamu tetap pemilik konten. MCN adalah partner, bukan pemilik akunmu.'},
-      {t:'Hak & kewajiban talent',body:'Hak talent: mendapat bimbingan, akses brand deal, laporan performa, dan bagi hasil sesuai kontrak.\nKewajiban talent: menjaga konsistensi upload, mematuhi community guidelines, dan menjaga nama baik jaringan.\n• Selalu baca kontrak sebelum tanda tangan.\n• Tanyakan bagian yang belum jelas ke manajer talent.'},
-      {t:'Alur kerja & bagi hasil',body:'Alur umum: brief menjadi produksi konten, lalu review, publish, dan laporan performa.\nBagi hasil biasanya berupa persentase dari revenue (mis. 70% talent / 30% MCN) atau flat fee per campaign.\nPembayaran mengikuti siklus bulanan setelah dana dari platform atau brand cair.'},
-      {t:'Tools internal',body:'Kenali tools yang dipakai jaringan: dashboard performa, kalender konten, dan channel komunikasi tim.\n• Gunakan kalender untuk deadline upload.\n• Laporkan kendala teknis lewat channel support.\n• Simpan aset (logo brand, guideline) di folder bersama.'}
+      {t:'Apa itu MCN',vid:'jSK6jvCDQxA',body:'MCN (Multi-Channel Network) adalah perusahaan yang bermitra dengan banyak creator untuk membantu pertumbuhan channel, monetisasi, dan manajemen.\nMCN menyediakan dukungan seperti optimasi konten, koneksi ke brand, perlindungan hak cipta, dan pelatihan.\nSebagai talent, kamu tetap pemilik konten. MCN adalah partner, bukan pemilik akunmu.'},
+      {t:'Hak & kewajiban talent',vid:'HuFbje8G6gE',body:'Hak talent: mendapat bimbingan, akses brand deal, laporan performa, dan bagi hasil sesuai kontrak.\nKewajiban talent: menjaga konsistensi upload, mematuhi community guidelines, dan menjaga nama baik jaringan.\n• Selalu baca kontrak sebelum tanda tangan.\n• Tanyakan bagian yang belum jelas ke manajer talent.'},
+      {t:'Alur kerja & bagi hasil',vid:'CtFqxUPdJQo',body:'Alur umum: brief menjadi produksi konten, lalu review, publish, dan laporan performa.\nBagi hasil biasanya berupa persentase dari revenue (mis. 70% talent / 30% MCN) atau flat fee per campaign.\nPembayaran mengikuti siklus bulanan setelah dana dari platform atau brand cair.'},
+      {t:'Tools internal',vid:'8jnF-Gjn6OI',body:'Kenali tools yang dipakai jaringan: dashboard performa, kalender konten, dan channel komunikasi tim.\n• Gunakan kalender untuk deadline upload.\n• Laporkan kendala teknis lewat channel support.\n• Simpan aset (logo brand, guideline) di folder bersama.'}
     ],quiz:[{q:'MCN membantu creator terutama dalam hal?',opts:['Monetisasi & manajemen channel','Memasak','Olahraga'],a:0},{q:'Siapa pemilik konten dalam kemitraan MCN yang sehat?',opts:['Talent tetap pemilik konten','MCN sepenuhnya','Platform'],a:0},{q:'Contoh kewajiban talent adalah?',opts:['Konsisten upload & patuh guideline','Mengabaikan brief','Menghapus akun'],a:0}]},
     {id:id(),title:'Content Strategy 101',cat:'Content Strategy',level:'Basic',hours:3,desc:'Menyusun pillar konten, kalender, dan hook yang menarik.',modules:[
-      {t:'Content pillar',body:'Content pillar adalah 3 sampai 5 tema utama yang jadi identitas channel, misalnya edukasi, hiburan, dan behind the scene.\nPillar membantu audiens tahu apa yang bisa mereka harapkan dan menjaga konten tetap fokus.\n• Tentukan pillar dari kekuatan, minat, dan kebutuhan audiens.\n• Bagi porsi upload di tiap pillar secara seimbang.'},
-      {t:'Hook & retention',body:'Hook adalah 3 detik pertama yang menentukan penonton lanjut atau scroll.\nGunakan pertanyaan, pernyataan mengejutkan, atau visual kuat di awal.\nRetention dijaga dengan pacing cepat, teks di layar, dan payoff di akhir.'},
-      {t:'Content calendar',body:'Kalender konten membantu upload konsisten dan tidak kehabisan ide.\n• Rencanakan tema mingguan.\n• Batch produksi beberapa konten sekaligus.\n• Sisakan slot untuk konten tren yang mendadak.'},
-      {t:'Riset tren',body:'Pantau halaman explore, sound yang sedang naik, dan hashtag relevan.\nAdaptasi tren ke pillar kamu, jangan ikut mentah-mentah.\nCatat tren yang cocok di kalender untuk dieksekusi cepat.'}
+      {t:'Content pillar',vid:'-IAS1d4hF5s',body:'Content pillar adalah 3 sampai 5 tema utama yang jadi identitas channel, misalnya edukasi, hiburan, dan behind the scene.\nPillar membantu audiens tahu apa yang bisa mereka harapkan dan menjaga konten tetap fokus.\n• Tentukan pillar dari kekuatan, minat, dan kebutuhan audiens.\n• Bagi porsi upload di tiap pillar secara seimbang.'},
+      {t:'Hook & retention',vid:'AoDd48sElwI',body:'Hook adalah 3 detik pertama yang menentukan penonton lanjut atau scroll.\nGunakan pertanyaan, pernyataan mengejutkan, atau visual kuat di awal.\nRetention dijaga dengan pacing cepat, teks di layar, dan payoff di akhir.'},
+      {t:'Content calendar',vid:'WpqgN8LE7gA',body:'Kalender konten membantu upload konsisten dan tidak kehabisan ide.\n• Rencanakan tema mingguan.\n• Batch produksi beberapa konten sekaligus.\n• Sisakan slot untuk konten tren yang mendadak.'},
+      {t:'Riset tren',vid:'xaeI9pcVwZU',body:'Pantau halaman explore, sound yang sedang naik, dan hashtag relevan.\nAdaptasi tren ke pillar kamu, jangan ikut mentah-mentah.\nCatat tren yang cocok di kalender untuk dieksekusi cepat.'}
     ],quiz:[{q:'Hook penting untuk?',opts:['Menahan penonton di detik awal','Menentukan warna thumbnail','Ukuran file'],a:0},{q:'Content pillar adalah?',opts:['Tema utama yang jadi identitas channel','Jenis kamera','Aplikasi edit'],a:0},{q:'Manfaat kalender konten?',opts:['Upload konsisten & tidak kehabisan ide','Menaikkan resolusi','Mengubah algoritma'],a:0}]},
     {id:id(),title:'Algoritma TikTok & Reels',cat:'Algoritma Platform',level:'Intermediate',hours:2,desc:'Memahami sinyal algoritma & optimasi distribusi.',modules:[
-      {t:'Sinyal algoritma',body:'Algoritma menilai konten dari watch time, completion rate, like, komentar, share, dan save.\nShare dan save biasanya berbobot paling besar karena menandakan konten bernilai.\nAlgoritma mendistribusikan ke audiens kecil dulu, lalu memperluas jika sinyal positif.'},
-      {t:'Watch time & rewatch',body:'Watch time total dan rewatch (penonton mengulang) sangat kuat mendorong distribusi.\nBuat video yang mengundang ditonton ulang, misalnya loop mulus atau detail yang terlewat.\nDurasi ideal: cukup untuk menyampaikan nilai tanpa bertele-tele.'},
-      {t:'Posting time',body:'Posting saat audiens paling aktif meningkatkan sinyal awal.\nCek analitik untuk jam aktif follower.\n• Uji beberapa jam berbeda selama 2 minggu.\n• Konsistensi lebih penting daripada jam sempurna.'},
-      {t:'Analitik',body:'Baca metrik kunci: completion rate, average watch time, traffic source, dan grafik retensi.\nGunakan data untuk tahu di detik berapa penonton drop, lalu perbaiki bagian itu.'}
+      {t:'Sinyal algoritma',vid:'EC1E94oqyPA',body:'Algoritma menilai konten dari watch time, completion rate, like, komentar, share, dan save.\nShare dan save biasanya berbobot paling besar karena menandakan konten bernilai.\nAlgoritma mendistribusikan ke audiens kecil dulu, lalu memperluas jika sinyal positif.'},
+      {t:'Watch time & rewatch',vid:'fsSGDMWJAIU',body:'Watch time total dan rewatch (penonton mengulang) sangat kuat mendorong distribusi.\nBuat video yang mengundang ditonton ulang, misalnya loop mulus atau detail yang terlewat.\nDurasi ideal: cukup untuk menyampaikan nilai tanpa bertele-tele.'},
+      {t:'Posting time',vid:'vxyM5Piu-qY',body:'Posting saat audiens paling aktif meningkatkan sinyal awal.\nCek analitik untuk jam aktif follower.\n• Uji beberapa jam berbeda selama 2 minggu.\n• Konsistensi lebih penting daripada jam sempurna.'},
+      {t:'Analitik',vid:'nj-g5Qkc2CE',body:'Baca metrik kunci: completion rate, average watch time, traffic source, dan grafik retensi.\nGunakan data untuk tahu di detik berapa penonton drop, lalu perbaiki bagian itu.'}
     ],quiz:[{q:'Metrik utama short video?',opts:['Watch time / completion','Jumlah kata','Ukuran file'],a:0},{q:'Sinyal yang biasanya berbobot besar?',opts:['Share & save','Warna latar','Panjang judul'],a:0},{q:'Kapan waktu terbaik posting?',opts:['Saat audiens paling aktif','Selalu tengah malam','Tidak berpengaruh'],a:0}]},
     {id:id(),title:'Monetisasi Creator',cat:'Monetisasi',level:'Intermediate',hours:3,desc:'Sumber income: adsense, gift, affiliate, endorse.',modules:[
-      {t:'Sumber revenue',body:'Sumber income creator: iklan platform (adsense atau creator fund), gift/donation saat live, affiliate, endorse/brand deal, dan produk sendiri.\nJangan bergantung pada satu sumber saja agar income lebih stabil.'},
-      {t:'Rate card',body:'Rate card adalah daftar harga layanan endorse kamu, misalnya 1 video, 1 story, atau paket bundling.\nHarga dipengaruhi jumlah follower, engagement rate, niche, dan effort produksi.\n• Siapkan versi rapi berupa PDF.\n• Update berkala saat metrik naik.'},
-      {t:'Affiliate',body:'Affiliate memberi komisi dari penjualan lewat link atau kode kamu.\nCocok untuk income pasif jika produk relevan dengan audiens.\nBersikap jujur dan hanya promosikan produk yang kamu percaya.'},
-      {t:'Diversifikasi income',body:'Diversifikasi menekan risiko saat satu platform berubah kebijakan.\nKombinasikan beberapa sumber revenue dan bangun aset milik sendiri seperti email list, komunitas, dan produk.'}
+      {t:'Sumber revenue',vid:'1zF3CX4_Amc',body:'Sumber income creator: iklan platform (adsense atau creator fund), gift/donation saat live, affiliate, endorse/brand deal, dan produk sendiri.\nJangan bergantung pada satu sumber saja agar income lebih stabil.'},
+      {t:'Rate card',vid:'WqSWzhoZ2jU',body:'Rate card adalah daftar harga layanan endorse kamu, misalnya 1 video, 1 story, atau paket bundling.\nHarga dipengaruhi jumlah follower, engagement rate, niche, dan effort produksi.\n• Siapkan versi rapi berupa PDF.\n• Update berkala saat metrik naik.'},
+      {t:'Affiliate',vid:'hZgayuRwEOw',body:'Affiliate memberi komisi dari penjualan lewat link atau kode kamu.\nCocok untuk income pasif jika produk relevan dengan audiens.\nBersikap jujur dan hanya promosikan produk yang kamu percaya.'},
+      {t:'Diversifikasi income',vid:'L4yN5-uuMCs',body:'Diversifikasi menekan risiko saat satu platform berubah kebijakan.\nKombinasikan beberapa sumber revenue dan bangun aset milik sendiri seperti email list, komunitas, dan produk.'}
     ],quiz:[{q:'Rate card dipakai untuk?',opts:['Menentukan harga endorse','Edit video','Login platform'],a:0},{q:'Kenapa diversifikasi income penting?',opts:['Menekan risiko perubahan kebijakan platform','Menambah followers otomatis','Menghapus pajak'],a:0},{q:'Affiliate memberi penghasilan dari?',opts:['Komisi penjualan lewat link/kode','Jumlah like','Durasi live'],a:0}]},
     {id:id(),title:'Brand Deal & Negosiasi',cat:'Brand Deal',level:'Advanced',hours:4,desc:'Pitching, negosiasi, deliverables, dan pelaporan campaign.',modules:[
-      {t:'Pitching brand',body:'Pitching adalah menawarkan kerja sama ke brand dengan media kit yang menampilkan audiens, metrik, dan contoh kerja.\nBuat pesan singkat, personal, dan tunjukkan nilai untuk brand.'},
-      {t:'Negosiasi harga',body:'Ketahui nilai kamu dan jangan langsung menerima tawaran pertama.\n• Tanyakan scope lengkap sebelum menyebut harga.\n• Tawarkan paket, bukan hanya satu konten.\n• Pertimbangkan hak pemakaian dan eksklusivitas dalam harga.'},
-      {t:'Brief & deliverables',body:'Brief berisi tujuan campaign, pesan utama, hal yang boleh dan tidak boleh, serta deadline.\nDeliverables adalah output yang dijanjikan, misalnya 1 video 60 detik dan 2 story.\nPastikan semua tertulis jelas agar tidak ada miskomunikasi.'},
-      {t:'Reporting campaign',body:'Setelah campaign, kirim laporan performa: reach, views, engagement, klik, dan screenshot.\nLaporan yang rapi meningkatkan peluang repeat order.'}
+      {t:'Pitching brand',vid:'IGk4ZV0trA8',body:'Pitching adalah menawarkan kerja sama ke brand dengan media kit yang menampilkan audiens, metrik, dan contoh kerja.\nBuat pesan singkat, personal, dan tunjukkan nilai untuk brand.'},
+      {t:'Negosiasi harga',vid:'-wZt4wlGAgU',body:'Ketahui nilai kamu dan jangan langsung menerima tawaran pertama.\n• Tanyakan scope lengkap sebelum menyebut harga.\n• Tawarkan paket, bukan hanya satu konten.\n• Pertimbangkan hak pemakaian dan eksklusivitas dalam harga.'},
+      {t:'Brief & deliverables',vid:'0yg_Osnt4jA',body:'Brief berisi tujuan campaign, pesan utama, hal yang boleh dan tidak boleh, serta deadline.\nDeliverables adalah output yang dijanjikan, misalnya 1 video 60 detik dan 2 story.\nPastikan semua tertulis jelas agar tidak ada miskomunikasi.'},
+      {t:'Reporting campaign',vid:'bAi9OsFTJD8',body:'Setelah campaign, kirim laporan performa: reach, views, engagement, klik, dan screenshot.\nLaporan yang rapi meningkatkan peluang repeat order.'}
     ],quiz:[{q:'Deliverables adalah?',opts:['Output yang dijanjikan ke brand','Nama kamera','Jenis lighting'],a:0},{q:'Tips negosiasi harga?',opts:['Ketahui nilai & jangan langsung terima tawaran pertama','Selalu ambil harga terendah','Abaikan scope'],a:0},{q:'Media kit berguna saat?',opts:['Pitching ke brand','Mengekspor video','Reset akun'],a:0}]},
     {id:id(),title:'Editing Cepat untuk Short Video',cat:'Editing & Produksi',level:'Basic',hours:3,desc:'Workflow editing efisien untuk konten harian.',modules:[
-      {t:'Setup project',body:'Siapkan template project: resolusi vertikal 1080x1920, folder aset, dan preset ekspor.\nTemplate menghemat waktu untuk konten harian.'},
-      {t:'Cut & pacing',body:'Buang jeda dan kata pengisi agar tempo cepat.\nPotong tepat pada momen penting untuk menjaga energi.\nPacing cepat menaikkan retention pada short video.'},
-      {t:'Caption & sound',body:'Tambahkan caption atau teks karena banyak penonton menonton tanpa suara.\nGunakan sound yang sedang tren namun tetap relevan.\nSinkronkan potongan dengan beat musik untuk kesan dinamis.'},
-      {t:'Export optimal',body:'Ekspor dengan bitrate cukup tinggi agar tidak pecah, format MP4 H.264.\n• Cek ulang di HP sebelum upload.\n• Hindari kompresi ganda.'}
+      {t:'Setup project',vid:'pcHVae8gwYQ',body:'Siapkan template project: resolusi vertikal 1080x1920, folder aset, dan preset ekspor.\nTemplate menghemat waktu untuk konten harian.'},
+      {t:'Cut & pacing',vid:'lsZOVvuf6y0',body:'Buang jeda dan kata pengisi agar tempo cepat.\nPotong tepat pada momen penting untuk menjaga energi.\nPacing cepat menaikkan retention pada short video.'},
+      {t:'Caption & sound',vid:'YwYry9UiO8o',body:'Tambahkan caption atau teks karena banyak penonton menonton tanpa suara.\nGunakan sound yang sedang tren namun tetap relevan.\nSinkronkan potongan dengan beat musik untuk kesan dinamis.'},
+      {t:'Export optimal',vid:'Kk6ZKBUOcds',body:'Ekspor dengan bitrate cukup tinggi agar tidak pecah, format MP4 H.264.\n• Cek ulang di HP sebelum upload.\n• Hindari kompresi ganda.'}
     ],quiz:[{q:'Pacing yang baik membuat?',opts:['Retention naik','File error','Audio hilang'],a:0},{q:'Kenapa caption/teks penting?',opts:['Banyak orang menonton tanpa suara','Menambah durasi','Mengubah rasio'],a:0},{q:'Format ekspor umum untuk short video?',opts:['MP4 H.264','DOCX','MP3'],a:0}]},
     {id:id(),title:'Kontrak & Hak Cipta',cat:'Legal & Kontrak',level:'Advanced',hours:2,desc:'Dasar kontrak talent, hak cipta musik & konten.',modules:[
-      {t:'Isi kontrak talent',body:'Kontrak talent umumnya memuat durasi, bagi hasil, ruang lingkup kerja, eksklusivitas, dan cara pengakhiran.\nBaca teliti dan pastikan kamu paham setiap klausul sebelum menandatangani.'},
-      {t:'Hak cipta musik',body:'Menggunakan musik berlisensi tanpa izin bisa memicu klaim atau takedown.\nGunakan library musik bebas royalti atau sound resmi dari platform.'},
-      {t:'Exclusive vs non-exclusive',body:'Kontrak eksklusif membatasi kamu hanya bekerja dengan satu pihak; non-eksklusif memberi kebebasan lebih.\nEksklusivitas biasanya dibayar lebih tinggi karena membatasi peluang lain.'},
-      {t:'Sengketa',body:'Jika terjadi sengketa, rujuk klausul penyelesaian di kontrak (musyawarah, mediasi, atau jalur hukum).\nSimpan semua bukti komunikasi dan perjanjian.'}
+      {t:'Isi kontrak talent',vid:'rREtXq5RtFM',body:'Kontrak talent umumnya memuat durasi, bagi hasil, ruang lingkup kerja, eksklusivitas, dan cara pengakhiran.\nBaca teliti dan pastikan kamu paham setiap klausul sebelum menandatangani.'},
+      {t:'Hak cipta musik',vid:'X8ENDBDXArs',body:'Menggunakan musik berlisensi tanpa izin bisa memicu klaim atau takedown.\nGunakan library musik bebas royalti atau sound resmi dari platform.'},
+      {t:'Exclusive vs non-exclusive',vid:'TpdoNzOXMGI',body:'Kontrak eksklusif membatasi kamu hanya bekerja dengan satu pihak; non-eksklusif memberi kebebasan lebih.\nEksklusivitas biasanya dibayar lebih tinggi karena membatasi peluang lain.'},
+      {t:'Sengketa',vid:'V4Qi3n8mCZY',body:'Jika terjadi sengketa, rujuk klausul penyelesaian di kontrak (musyawarah, mediasi, atau jalur hukum).\nSimpan semua bukti komunikasi dan perjanjian.'}
     ],quiz:[{q:'Musik ber-copyright tanpa izin bisa sebabkan?',opts:['Klaim / takedown','Naik gaji','Verifikasi akun'],a:0},{q:'Kontrak eksklusif berarti?',opts:['Hanya bekerja dengan satu pihak','Bebas ke semua pihak','Tanpa bayaran'],a:0},{q:'Langkah bijak sebelum tanda tangan kontrak?',opts:['Baca teliti & pahami tiap klausul','Tanda tangan cepat','Abaikan durasi'],a:0}]}
   ];
   const talents=[
@@ -218,7 +219,7 @@ function lsGet(k){try{return localStorage.getItem(k);}catch(e){return MEM;}}
 function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){MEM=v;}}
 function load(){try{const raw=lsGet(KEY);const d=raw?JSON.parse(raw):null;if(d&&d.courses)return d;}catch(e){}const s=seed();save(s);return s;}
 function save(d){DB=d||DB;lsSet(KEY,JSON.stringify(DB));}
-let DB=load();
+var DB=load();
 
 function getEnroll(tid,cid){return DB.enroll.find(e=>e.tid===tid&&e.cid===cid);}
 function prog(e){const c=courseById(e.cid);if(!c)return 0;const tot=c.modules.length;return tot?Math.round((e.done||[]).length/tot*100):0;}
@@ -314,7 +315,7 @@ function courseList(){
 }
 function courseSyllabus(cid){
   const c=courseById(cid);
-  openModal(`<h2>${esc(c.title)}</h2><div class="muted" style="font-size:12px;margin-bottom:12px">${c.level} · ${c.cat} · ${c.hours} jam · ${c.modules.length} modul</div><p style="font-size:13px;margin-bottom:14px">${esc(c.desc)}</p>${c.modules.map((m,mi)=>`<div style="border-top:1px solid var(--line);padding:10px 0"><b style="font-size:13px">${mi+1}. ${esc(m.t)}</b><div class="lesson" style="margin-top:6px">${fmtBody(m.body)}</div></div>`).join('')}<div class="actions"><button class="btn" onclick="closeModal()">Tutup</button></div>`);
+  openModal(`<h2>${esc(c.title)}</h2><div class="muted" style="font-size:12px;margin-bottom:12px">${c.level} · ${c.cat} · ${c.hours} jam · ${c.modules.length} modul</div><p style="font-size:13px;margin-bottom:14px">${esc(c.desc)}</p>${c.modules.map((m,mi)=>`<div style="border-top:1px solid var(--line);padding:10px 0"><b style="font-size:13px">${mi+1}. ${esc(m.t)}</b><div class="lesson" style="margin-top:6px">${fmtBody(m.body)}</div>${m.vid?`<a class="tag" style="color:var(--purple);cursor:pointer" data-ytid="${m.vid}" onclick="event.preventDefault();window.open('https://www.youtube.com/watch?v='+this.getAttribute('data-ytid'),'_blank');return false;" data-x2="https://www.youtube.com/watch?v=${m.vid}" data-x="https://www.youtube.com/watch?v=${m.vid}" target="_blank" rel="noopener">▶ Video</a>`:''}</div>`).join('')}<div class="actions"><button class="btn" onclick="closeModal()">Tutup</button></div>`);
 }
 function courseForm(cid){
   const c=cid?courseById(cid):{title:'',cat:CATS[0],level:'Basic',hours:1,desc:'',modules:[],quiz:[]};
@@ -324,7 +325,7 @@ function courseForm(cid){
   <div class="field"><label>Deskripsi</label><textarea id="fDesc" rows="2">${esc(c.desc)}</textarea></div>
   <div class="field"><label>Modul (satu judul per baris)</label><textarea id="fMods" rows="4">${esc(c.modules.map(m=>m.t).join('\n'))}</textarea></div>
   <div class="actions"><button class="btn ghost" onclick="closeModal()">Batal</button><button class="btn" id="saveCourse">Simpan</button></div>`);
-  document.getElementById('saveCourse').onclick=()=>{const lines=document.getElementById('fMods').value.split('\n').map(s=>s.trim()).filter(Boolean);const mods=lines.map(t=>{const ex=(c.modules||[]).find(m=>m.t===t);return {t,body:ex?ex.body:''};});const data={title:val('fTitle'),cat:val('fCat'),level:val('fLv'),hours:+val('fHours')||1,desc:val('fDesc'),modules:mods,quiz:c.quiz||[]};if(!data.title){alert('Judul wajib diisi');return;}if(cid){Object.assign(courseById(cid),data);}else{DB.courses.push({id:id(),...data});}save();closeModal();courseList();};
+  document.getElementById('saveCourse').onclick=()=>{const lines=document.getElementById('fMods').value.split('\n').map(s=>s.trim()).filter(Boolean);const mods=lines.map(t=>{const ex=(c.modules||[]).find(m=>m.t===t);return {t,body:ex?ex.body:'',vid:ex?ex.vid:''};});const data={title:val('fTitle'),cat:val('fCat'),level:val('fLv'),hours:+val('fHours')||1,desc:val('fDesc'),modules:mods,quiz:c.quiz||[]};if(!data.title){alert('Judul wajib diisi');return;}if(cid){Object.assign(courseById(cid),data);}else{DB.courses.push({id:id(),...data});}save();closeModal();courseList();};
 }
 
 // ===== TALENT =====
@@ -360,7 +361,7 @@ function openEnroll(i){
 }
 function lessonView(ei,mi){
   const e=DB.enroll[ei],c=courseById(e.cid),m=c.modules[mi];
-  openModal(`<h2>${esc(m.t)}</h2><div class="muted" style="font-size:12px;margin-bottom:12px">${esc(c.title)} · Modul ${mi+1}/${c.modules.length}</div><div class="lesson">${fmtBody(m.body)}</div><div class="actions"><button class="btn ghost" data-back>← Kembali</button><button class="btn" data-done>✓ Tandai selesai</button></div>`);
+  openModal(`<h2>${esc(m.t)}</h2><div class="muted" style="font-size:12px;margin-bottom:12px">${esc(c.title)} · Modul ${mi+1}/${c.modules.length}</div>${vidEmbed(m)}<div class="lesson">${fmtBody(m.body)}</div><div class="actions"><button class="btn ghost" data-back>← Kembali</button><button class="btn" data-done>✓ Tandai selesai</button></div>`);
   document.querySelector('[data-back]').onclick=()=>openEnroll(ei);
   document.querySelector('[data-done]').onclick=()=>{e.done=e.done||[];if(!e.done.includes(mi))e.done.push(mi);save();openEnroll(ei);};
 }
@@ -411,6 +412,7 @@ function bind(v){
 function val(x){return document.getElementById(x).value.trim();}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function fmtBody(s){return String(s||'Materi belum tersedia.').split('\n').map(l=>l.trim()).filter(Boolean).map(l=>`<p>${esc(l)}</p>`).join('');}
+function vidEmbed(m){if(!m||!m.vid)return '';return '<div style="position:relative;padding-bottom:56.25%;height:0;border-radius:12px;overflow:hidden;margin-bottom:12px;background:#000"><iframe src="https://www.youtube.com/embed/'+m.vid+'" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allowfullscreen loading="lazy"></iframe></div><div style="margin-bottom:12px"><a class="btn sm ghost" href="https://www.youtube.com/watch?v='+m.vid+'" target="_blank" rel="noopener">▶ Buka video di YouTube</a></div>';}
 function openModal(html){document.getElementById('modalBox').innerHTML=html;document.getElementById('modal').classList.add('open');}
 function closeModal(){document.getElementById('modal').classList.remove('open');}
 document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')closeModal();};
