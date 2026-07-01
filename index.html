@@ -1,180 +1,273 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Creator Learning Hub — LMS MCN</title>
 <style>
   :root{
-    --bg:#0f1220; --panel:#171a2b; --panel2:#1f2338; --line:#2a2f4a;
-    --text:#e7e9f3; --muted:#9aa0bd; --brand:#7c5cff; --brand2:#4dd0e1;
-    --ok:#37d67a; --warn:#ffb020; --danger:#ff5c7c; --radius:14px;
+    --card:#fff; --ink:#2f2e41; --muted:#9aa1ad; --line:#eef0f4;
+    --purple:#6c5ce7; --purple-soft:#efeafe;
+    --peach:#fdeadf; --peach2:#f2955a;
+    --pink:#fde3ec; --pink2:#ef6b8e;
+    --green:#e2f5e9; --green2:#35c07a;
+    --radius:18px;
   }
-  *{box-sizing:border-box}
-  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
-  a{color:inherit}
-  .app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
-  .sidebar{background:var(--panel);border-right:1px solid var(--line);padding:20px 14px;position:sticky;top:0;height:100vh}
-  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;margin-bottom:24px}
-  .brand .dot{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--brand),var(--brand2))}
-  .nav button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:transparent;border:0;color:var(--muted);padding:11px 12px;border-radius:10px;cursor:pointer;font-size:14px;margin-bottom:4px}
-  .nav button:hover{background:var(--panel2);color:var(--text)}
-  .nav button.active{background:var(--panel2);color:var(--text);font-weight:600}
-  .main{padding:26px 30px;max-width:1200px;width:100%}
-  .head{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;gap:12px;flex-wrap:wrap}
-  .head h1{margin:0;font-size:22px}
-  .head p{margin:4px 0 0;color:var(--muted);font-size:13px}
-  .btn{background:var(--brand);color:#fff;border:0;padding:10px 15px;border-radius:10px;cursor:pointer;font-size:14px;font-weight:600}
-  .btn.ghost{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(160deg,#cfe0e8,#dfeef2);color:var(--ink);min-height:100vh}
+  .wrap{display:grid;grid-template-columns:232px 1fr;min-height:100vh}
+  .side{background:#fff;display:flex;flex-direction:column;padding:22px 16px;gap:6px}
+  .logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:20px;padding:6px 10px 22px}
+  .logo .q{width:26px;height:26px;background:linear-gradient(135deg,var(--purple),#a29bfe);border-radius:6px 6px 6px 14px;transform:rotate(8deg)}
+  .menu a{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;cursor:pointer}
+  .menu a:hover{background:#f6f7fb;color:var(--ink)}
+  .menu a.active{background:var(--purple);color:#fff;box-shadow:0 8px 18px rgba(108,92,231,.35)}
+  .menu .sp{flex:1}
+  .content{padding:20px 26px;display:flex;flex-direction:column;gap:20px}
+  .topbar{display:flex;align-items:center;gap:18px;background:#fff;border-radius:var(--radius);padding:12px 18px}
+  .topbar h1{font-size:19px}
+  .search{flex:1;max-width:520px;display:flex;align-items:center;gap:10px;background:#f4f6fa;border-radius:12px;padding:10px 14px;color:var(--muted)}
+  .search input{border:0;background:transparent;outline:0;width:100%;font-size:14px;color:var(--ink)}
+  .topbar .sp{flex:1}
+  .icon-btn{width:38px;height:38px;border-radius:10px;background:#f4f6fa;border:0;display:grid;place-items:center;cursor:pointer;position:relative;font-size:16px}
+  .dot-red{position:absolute;top:9px;right:10px;width:7px;height:7px;background:#ff5c7c;border-radius:50%}
+  .profile{display:flex;align-items:center;gap:8px;background:#f4f6fa;border-radius:30px;padding:5px 12px 5px 5px;cursor:pointer}
+  .avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#6c5ce7,#a29bfe)}
+  .main-grid{display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start}
+  .col{display:flex;flex-direction:column;gap:20px}
+  .card{background:#fff;border-radius:var(--radius);padding:20px}
+  .card h2{font-size:16px;margin-bottom:16px}
+  .now{display:flex;align-items:center;gap:14px;padding:14px 16px}
+  .thumb{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#ff9a8b,#ff6a88,#a18cd1);flex:none}
+  .now .info{flex:1;min-width:0}
+  .now .info b{font-size:14px}
+  .now .line{height:6px;background:#eef0f4;border-radius:6px;margin-top:8px;overflow:hidden}
+  .now .line>span{display:block;height:100%;background:var(--purple)}
+  .counts{display:flex;gap:14px;color:var(--muted);font-size:13px}
+  .counts span{display:flex;align-items:center;gap:4px;white-space:nowrap}
+  .resume{display:flex;align-items:center;gap:8px;background:var(--purple-soft);color:var(--purple);border:0;padding:10px 16px;border-radius:10px;font-weight:600;cursor:pointer;font-size:14px}
+  .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .stat{border-radius:16px;padding:18px;display:flex;justify-content:space-between;align-items:center}
+  .stat.peach{background:var(--peach)} .stat.pink{background:var(--pink)} .stat.green{background:var(--green)}
+  .stat .bignum{font-size:26px;font-weight:800}
+  .stat .lbl{font-weight:600;font-size:14px;margin-top:2px}
+  .stat .sub{color:var(--muted);font-size:11px;margin-top:3px}
+  .badge-ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:16px;margin-bottom:10px}
+  .peach .badge-ic{background:#f7c9a8} .pink .badge-ic{background:#f7bcce} .green .badge-ic{background:#bfe9cf}
+  .ring{width:60px;height:60px;border-radius:50%;display:grid;place-items:center}
+  .ring .in{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700}
+  .peach .ring .in{background:var(--peach)} .pink .ring .in{background:var(--pink)} .green .ring .in{background:var(--green)}
+  .seg{display:flex;gap:6px;background:#f4f6fa;border-radius:10px;padding:4px}
+  .seg button{border:0;background:transparent;padding:6px 14px;border-radius:8px;font-size:13px;color:var(--muted);cursor:pointer;font-weight:600}
+  .seg button.on{background:#fff;color:var(--purple);box-shadow:0 2px 6px rgba(0,0,0,.06)}
+  .crow{display:grid;grid-template-columns:1.7fr 1.1fr 1fr;align-items:center;gap:10px;padding:12px 0;border-top:1px solid var(--line)}
+  .crow .name{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:600}
+  .cico{width:36px;height:36px;border-radius:10px;flex:none}
+  .cbar{height:6px;background:#eef0f4;border-radius:6px;overflow:hidden}
+  .cbar>span{display:block;height:100%}
+  .thead{display:grid;grid-template-columns:1.7fr 1.1fr 1fr;color:var(--muted);font-size:12px;font-weight:600;padding-bottom:6px}
+  .cal-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+  .cal-top .nav{display:flex;gap:6px}
+  .cal-top button{width:26px;height:26px;border-radius:8px;border:0;background:#f4f6fa;cursor:pointer}
+  .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center}
+  .cal .dn{color:var(--muted);font-size:11px;font-weight:600;padding-bottom:4px}
+  .cal .day{aspect-ratio:1;display:grid;place-items:center;border-radius:50%;font-size:12px}
+  .cal .day.mut{color:#cdd2db}
+  .cal .day.range{background:var(--purple-soft);color:var(--purple);font-weight:700}
+  .cal .day.today{background:var(--purple);color:#fff;font-weight:700}
+  .up{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+  .up:first-of-type{border-top:0}
+  .datechip{width:44px;height:46px;border-radius:12px;background:#f4f6fa;display:grid;place-items:center;text-align:center;line-height:1.1;flex:none}
+  .datechip b{font-size:15px} .datechip small{font-size:10px;color:var(--muted)}
+  .up .t b{font-size:13px} .up .t small{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:5px;margin-top:3px}
+  .tagdot{width:7px;height:7px;border-radius:50%}
+  /* functional */
+  .btn{background:var(--purple);color:#fff;border:0;padding:9px 15px;border-radius:10px;cursor:pointer;font-size:14px;font-weight:600}
+  .btn.ghost{background:#f4f6fa;color:var(--ink)}
   .btn.sm{padding:6px 10px;font-size:12px}
-  .grid{display:grid;gap:16px}
-  .cards{grid-template-columns:repeat(4,1fr)}
-  .col3{grid-template-columns:repeat(3,1fr)}
-  .col2{grid-template-columns:repeat(2,1fr)}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
-  .stat .label{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.5px}
-  .stat .value{font-size:28px;font-weight:800;margin-top:6px}
-  .stat .sub{color:var(--muted);font-size:12px;margin-top:4px}
-  .course-card h3{margin:0 0 6px;font-size:16px}
-  .tag{display:inline-block;font-size:11px;padding:3px 8px;border-radius:999px;background:var(--panel2);border:1px solid var(--line);color:var(--muted);margin-right:6px}
-  .tag.lv{color:#fff}
-  .lv.Basic{background:#2e7d32}.lv.Intermediate{background:#ef6c00}.lv.Advanced{background:#c62828}
-  .bar{height:8px;background:var(--panel2);border-radius:999px;overflow:hidden;margin-top:10px}
-  .bar > span{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2))}
-  table{width:100%;border-collapse:collapse;font-size:13px}
-  th,td{text-align:left;padding:11px 10px;border-bottom:1px solid var(--line)}
-  th{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+  .toolbar{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+  .toolbar input,.toolbar select{max-width:230px}
+  .grid{display:grid;gap:16px}.col3{grid-template-columns:repeat(3,1fr)}.col2{grid-template-columns:repeat(2,1fr)}
+  .tag{display:inline-block;font-size:11px;padding:3px 8px;border-radius:999px;background:#f4f6fa;color:var(--muted);margin-right:6px}
+  .tag.lv{color:#fff}.lv.Basic{background:#35c07a}.lv.Intermediate{background:#f2955a}.lv.Advanced{background:#ef6b8e}
   .pill{font-size:11px;padding:3px 9px;border-radius:999px;font-weight:600}
-  .pill.done{background:rgba(55,214,122,.15);color:var(--ok)}
-  .pill.prog{background:rgba(255,176,32,.15);color:var(--warn)}
-  .pill.todo{background:rgba(154,160,189,.15);color:var(--muted)}
-  input,select,textarea{width:100%;background:var(--panel2);border:1px solid var(--line);color:var(--text);padding:10px 12px;border-radius:10px;font-size:14px;font-family:inherit}
+  .pill.done{background:var(--green);color:#1f9d5c}.pill.prog{background:var(--peach);color:#c8721f}.pill.todo{background:#f0f1f5;color:var(--muted)}
+  input,select,textarea{width:100%;background:#f4f6fa;border:1px solid var(--line);color:var(--ink);padding:10px 12px;border-radius:10px;font-size:14px;font-family:inherit}
   label{font-size:12px;color:var(--muted);display:block;margin:0 0 6px}
-  .field{margin-bottom:14px}
-  .row{display:flex;gap:12px;flex-wrap:wrap}
-  .row > *{flex:1;min-width:0}
-  .modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}
+  .field{margin-bottom:14px}.row{display:flex;gap:12px;flex-wrap:wrap}.row>*{flex:1;min-width:0}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line)}
+  th{color:var(--muted);font-weight:600;font-size:12px}
+  .center{text-align:center}
+  .modal{position:fixed;inset:0;background:rgba(20,20,40,.4);display:none;align-items:center;justify-content:center;padding:20px;z-index:60}
   .modal.open{display:flex}
-  .modal .box{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;width:100%;max-width:520px;max-height:88vh;overflow:auto}
+  .modal .box{background:#fff;border-radius:16px;padding:22px;width:100%;max-width:520px;max-height:88vh;overflow:auto}
   .modal h2{margin:0 0 16px;font-size:18px}
   .modal .actions{display:flex;justify-content:flex-end;gap:10px;margin-top:8px}
-  .toolbar{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
-  .toolbar input,.toolbar select{max-width:240px}
-  .muted{color:var(--muted)}
-  .center{text-align:center}
-  .hidden{display:none!important}
-  .modules li{margin-bottom:8px}
-  .check{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;margin-bottom:8px;cursor:pointer}
+  .check{display:flex;align-items:center;gap:10px;padding:9px 12px;background:#f4f6fa;border-radius:10px;margin-bottom:8px;cursor:pointer}
   .check input{width:auto}
-  .quiz-q{margin-bottom:16px}
-  .quiz-q .opt{display:flex;align-items:center;gap:8px;margin:6px 0}
-  .quiz-q .opt input{width:auto}
-  @media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{position:static;height:auto}.cards,.col3,.col2{grid-template-columns:1fr}}
+  .quiz-q{margin-bottom:16px}.quiz-q .opt{display:flex;align-items:center;gap:8px;margin:6px 0}.quiz-q .opt input{width:auto}
+  .muted{color:var(--muted)}
+  @media(max-width:1000px){.main-grid,.col3,.col2{grid-template-columns:1fr}.wrap{grid-template-columns:1fr}.side{flex-direction:row;flex-wrap:wrap;align-items:center}.menu{display:flex;flex-wrap:wrap}.stat-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<div class="app">
-  <aside class="sidebar">
-    <div class="brand"><div class="dot"></div> Creator Hub</div>
-    <nav class="nav" id="nav">
-      <button data-view="dashboard" class="active">📊 Dashboard</button>
-      <button data-view="courses">🎓 Courses</button>
-      <button data-view="talents">👤 Talent</button>
-      <button data-view="progress">📈 Progress</button>
-      <button data-view="path">🧭 Learning Path</button>
-      <button data-view="reports">📁 Reports</button>
+<div class="wrap">
+  <aside class="side">
+    <div class="logo"><span class="q"></span> Creator Hub</div>
+    <nav class="menu" id="menu">
+      <a data-view="dashboard" class="active">📊 Dashboard</a>
+      <a data-view="courses">📚 Courses</a>
+      <a data-view="talents">👤 Talent</a>
+      <a data-view="progress">📈 Progress</a>
+      <a data-view="path">🧭 Learning Path</a>
+      <a data-view="reports">📁 Reports</a>
+      <span class="sp"></span>
+      <a onclick="if(confirm('Reset semua data ke contoh awal?')){localStorage.removeItem(KEY);location.reload();}">♻️ Reset Data</a>
     </nav>
   </aside>
 
-  <main class="main">
+  <div class="content">
+    <div class="topbar">
+      <h1 id="pageTitle">Dashboard</h1>
+      <div class="search">🔍 <input id="globalSearch" placeholder="Search course..."/></div>
+      <span class="sp"></span>
+      <button class="icon-btn">💬</button>
+      <button class="icon-btn">🔔<span class="dot-red"></span></button>
+      <div class="profile"><span class="avatar"></span> <b style="font-size:13px">Admin L&amp;D</b> <span style="color:var(--muted)">▾</span></div>
+    </div>
     <div id="view"></div>
-  </main>
+  </div>
 </div>
-
 <div class="modal" id="modal"><div class="box" id="modalBox"></div></div>
 
 <script>
-const KEY='mcn_lms_v1';
+const KEY='mcn_lms_combined_v1';
 const CATS=['Content Strategy','Monetisasi','Brand Deal','Editing & Produksi','Algoritma Platform','Personal Branding','Legal & Kontrak'];
 const LEVELS=['Basic','Intermediate','Advanced'];
 const PLATFORMS=['TikTok','YouTube','Instagram','Twitch','Multi'];
 const TIERS=['Baru','Growing','Pro'];
-
-function seed(){
-  return {
-    courses:[
-      {id:id(),title:'Onboarding Talent MCN',cat:'Personal Branding',level:'Basic',hours:2,desc:'Pengenalan sistem MCN, hak & kewajiban talent, cara kerja bagi hasil.',modules:['Apa itu MCN','Hak & kewajiban talent','Alur kerja & bagi hasil','Tools internal'],quiz:[{q:'MCN membantu creator dalam hal?',opts:['Monetisasi & manajemen','Masak','Olahraga'],a:0}]},
-      {id:id(),title:'Content Strategy 101',cat:'Content Strategy',level:'Basic',hours:3,desc:'Menyusun pillar konten, kalender, dan hook yang menarik.',modules:['Content pillar','Hook & retention','Content calendar','Riset tren'],quiz:[{q:'Hook penting untuk?',opts:['Menahan penonton di detik awal','Warna thumbnail','Durasi upload'],a:0}]},
-      {id:id(),title:'Algoritma TikTok & Reels',cat:'Algoritma Platform',level:'Intermediate',hours:2,desc:'Memahami sinyal algoritma & optimasi distribusi.',modules:['Sinyal algoritma','Watch time & rewatch','Posting time','Analitik'],quiz:[{q:'Metrik utama short video?',opts:['Watch time / completion','Jumlah kata','Ukuran file'],a:0}]},
-      {id:id(),title:'Monetisasi Creator',cat:'Monetisasi',level:'Intermediate',hours:3,desc:'Sumber income: adsense, gift, affiliate, endorse.',modules:['Sumber revenue','Rate card','Affiliate','Diversifikasi income'],quiz:[{q:'Rate card dipakai untuk?',opts:['Menentukan harga endorse','Edit video','Login platform'],a:0}]},
-      {id:id(),title:'Brand Deal & Negosiasi',cat:'Brand Deal',level:'Advanced',hours:4,desc:'Pitching, negosiasi, deliverables, dan pelaporan campaign.',modules:['Pitching brand','Negosiasi harga','Brief & deliverables','Reporting campaign'],quiz:[{q:'Deliverables adalah?',opts:['Output yang dijanjikan ke brand','Nama kamera','Jenis lighting'],a:0}]},
-      {id:id(),title:'Editing Cepat untuk Short Video',cat:'Editing & Produksi',level:'Basic',hours:3,desc:'Workflow editing efisien untuk konten harian.',modules:['Setup project','Cut & pacing','Caption & sound','Export optimal'],quiz:[{q:'Pacing yang baik membuat?',opts:['Retention naik','File error','Audio hilang'],a:0}]},
-      {id:id(),title:'Kontrak & Hak Cipta',cat:'Legal & Kontrak',level:'Advanced',hours:2,desc:'Dasar kontrak talent, hak cipta musik & konten.',modules:['Isi kontrak talent','Hak cipta musik','Exclusive vs non-exclusive','Sengketa'],quiz:[{q:'Musik ber-copyright bisa sebabkan?',opts:['Klaim / takedown','Naik gaji','Verifikasi akun'],a:0}]}
-    ],
-    talents:[
-      {id:id(),name:'Rani Putri',platform:'TikTok',niche:'Beauty',tier:'Growing'},
-      {id:id(),name:'Dimas Aji',platform:'YouTube',niche:'Gaming',tier:'Pro'},
-      {id:id(),name:'Sasa Melati',platform:'Instagram',niche:'Fashion',tier:'Baru'},
-      {id:id(),name:'Bagus Pratama',platform:'Multi',niche:'Comedy',tier:'Growing'}
-    ],
-    enroll:[]
-  };
-}
+const COLORS=['#6c5ce7','#ef6b8e','#f2955a','#35c07a','#00b3c6','#e17055'];
 
 function id(){return Math.random().toString(36).slice(2,9)}
+function seed(){
+  const courses=[
+    {id:id(),title:'Onboarding Talent MCN',cat:'Personal Branding',level:'Basic',hours:2,desc:'Pengenalan sistem MCN, hak & kewajiban talent, cara kerja bagi hasil.',modules:['Apa itu MCN','Hak & kewajiban talent','Alur kerja & bagi hasil','Tools internal'],quiz:[{q:'MCN membantu creator dalam hal?',opts:['Monetisasi & manajemen','Masak','Olahraga'],a:0}]},
+    {id:id(),title:'Content Strategy 101',cat:'Content Strategy',level:'Basic',hours:3,desc:'Menyusun pillar konten, kalender, dan hook yang menarik.',modules:['Content pillar','Hook & retention','Content calendar','Riset tren'],quiz:[{q:'Hook penting untuk?',opts:['Menahan penonton di detik awal','Warna thumbnail','Durasi upload'],a:0}]},
+    {id:id(),title:'Algoritma TikTok & Reels',cat:'Algoritma Platform',level:'Intermediate',hours:2,desc:'Memahami sinyal algoritma & optimasi distribusi.',modules:['Sinyal algoritma','Watch time & rewatch','Posting time','Analitik'],quiz:[{q:'Metrik utama short video?',opts:['Watch time / completion','Jumlah kata','Ukuran file'],a:0}]},
+    {id:id(),title:'Monetisasi Creator',cat:'Monetisasi',level:'Intermediate',hours:3,desc:'Sumber income: adsense, gift, affiliate, endorse.',modules:['Sumber revenue','Rate card','Affiliate','Diversifikasi income'],quiz:[{q:'Rate card dipakai untuk?',opts:['Menentukan harga endorse','Edit video','Login platform'],a:0}]},
+    {id:id(),title:'Brand Deal & Negosiasi',cat:'Brand Deal',level:'Advanced',hours:4,desc:'Pitching, negosiasi, deliverables, dan pelaporan campaign.',modules:['Pitching brand','Negosiasi harga','Brief & deliverables','Reporting campaign'],quiz:[{q:'Deliverables adalah?',opts:['Output yang dijanjikan ke brand','Nama kamera','Jenis lighting'],a:0}]},
+    {id:id(),title:'Editing Cepat untuk Short Video',cat:'Editing & Produksi',level:'Basic',hours:3,desc:'Workflow editing efisien untuk konten harian.',modules:['Setup project','Cut & pacing','Caption & sound','Export optimal'],quiz:[{q:'Pacing yang baik membuat?',opts:['Retention naik','File error','Audio hilang'],a:0}]},
+    {id:id(),title:'Kontrak & Hak Cipta',cat:'Legal & Kontrak',level:'Advanced',hours:2,desc:'Dasar kontrak talent, hak cipta musik & konten.',modules:['Isi kontrak talent','Hak cipta musik','Exclusive vs non-exclusive','Sengketa'],quiz:[{q:'Musik ber-copyright bisa sebabkan?',opts:['Klaim / takedown','Naik gaji','Verifikasi akun'],a:0}]}
+  ];
+  const talents=[
+    {id:id(),name:'Rani Putri',platform:'TikTok',niche:'Beauty',tier:'Growing'},
+    {id:id(),name:'Dimas Aji',platform:'YouTube',niche:'Gaming',tier:'Pro'},
+    {id:id(),name:'Sasa Melati',platform:'Instagram',niche:'Fashion',tier:'Baru'},
+    {id:id(),name:'Bagus Pratama',platform:'Multi',niche:'Comedy',tier:'Growing'}
+  ];
+  const enroll=[
+    {tid:talents[0].id,cid:courses[0].id,done:[0,1,2,3],score:100},
+    {tid:talents[0].id,cid:courses[2].id,done:[0,1],score:null},
+    {tid:talents[1].id,cid:courses[1].id,done:[0,1,2,3],score:80},
+    {tid:talents[1].id,cid:courses[4].id,done:[0],score:null},
+    {tid:talents[2].id,cid:courses[0].id,done:[0,1],score:null},
+    {tid:talents[3].id,cid:courses[3].id,done:[0,1,2],score:null}
+  ];
+  return {courses,talents,enroll};
+}
 let DB=load();
 function load(){try{const d=JSON.parse(localStorage.getItem(KEY));if(d&&d.courses)return d;}catch(e){}const s=seed();save(s);return s;}
 function save(d){DB=d||DB;localStorage.setItem(KEY,JSON.stringify(DB));}
 
-// enrollment helpers
 function getEnroll(tid,cid){return DB.enroll.find(e=>e.tid===tid&&e.cid===cid);}
-function enrollProgress(e,course){if(!e)return 0;const total=course.modules.length;const done=(e.done||[]).length;return total?Math.round(done/total*100):0;}
+function prog(e){const c=courseById(e.cid);if(!c)return 0;const tot=c.modules.length;return tot?Math.round((e.done||[]).length/tot*100):0;}
 function courseById(cid){return DB.courses.find(c=>c.id===cid);}
 function talentById(tid){return DB.talents.find(t=>t.id===tid);}
+function colorFor(i){return COLORS[i%COLORS.length];}
 
 // ROUTER
-const nav=document.getElementById('nav');
-nav.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;[...nav.children].forEach(x=>x.classList.remove('active'));b.classList.add('active');render(b.dataset.view);});
-function render(v){const el=document.getElementById('view');el.innerHTML=({dashboard:vDash,courses:vCourses,talents:vTalents,progress:vProgress,path:vPath,reports:vReports}[v]||vDash)();bind(v);}
+const titles={dashboard:'Dashboard',courses:'Courses',talents:'Talent',progress:'Progress',path:'Learning Path',reports:'Reports'};
+document.getElementById('menu').addEventListener('click',e=>{const a=e.target.closest('a[data-view]');if(!a)return;render(a.dataset.view);});
+function render(v){
+  document.querySelectorAll('.menu a[data-view]').forEach(a=>a.classList.toggle('active',a.dataset.view===v));
+  document.getElementById('pageTitle').textContent=titles[v]||'Dashboard';
+  document.getElementById('view').innerHTML=({dashboard:vDash,courses:vCourses,talents:vTalents,progress:vProgress,path:vPath,reports:vReports}[v]||vDash)();
+  bind(v);
+}
 
-// VIEWS
-function head(t,s,btn){return `<div class="head"><div><h1>${t}</h1><p>${s}</p></div>${btn||''}</div>`}
-
+// ===== DASHBOARD =====
+let myTab='active';
 function vDash(){
-  const totalTalent=DB.talents.length,totalCourse=DB.courses.length;
-  const progs=DB.enroll.map(e=>enrollProgress(e,courseById(e.cid)));
-  const avg=progs.length?Math.round(progs.reduce((a,b)=>a+b,0)/progs.length):0;
-  const certs=DB.enroll.filter(e=>enrollProgress(e,courseById(e.cid))===100).length;
-  const recent=DB.enroll.slice(-6).reverse();
-  return head('Dashboard','Ringkasan pembinaan talent MCN')+
-  `<div class="grid cards">
-    ${stat('Total Talent',totalTalent,'Creator aktif')}
-    ${stat('Total Course',totalCourse,'Materi tersedia')}
-    ${stat('Avg Progress',avg+'%','Rata-rata penyelesaian')}
-    ${stat('Sertifikat',certs,'Course selesai 100%')}
-  </div>
-  <div class="grid col2" style="margin-top:16px">
-    <div class="card"><h3 style="margin-top:0">Enrollment terbaru</h3>
-      ${recent.length?`<table><tr><th>Talent</th><th>Course</th><th>Progress</th></tr>${recent.map(e=>{const c=courseById(e.cid),t=talentById(e.tid);const p=enrollProgress(e,c);return `<tr><td>${t?t.name:'-'}</td><td>${c?c.title:'-'}</td><td>${badge(p)}</td></tr>`}).join('')}</table>`:'<p class="muted">Belum ada enrollment. Buka menu Progress untuk assign course ke talent.</p>'}
+  return `<div class="main-grid">
+    <div class="col">
+      <div class="card now" id="nowCard"></div>
+      <div class="card"><h2>Status</h2><div class="stat-grid" id="statGrid"></div></div>
+      <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px"><h2 style="margin:0">My Courses</h2>
+        <div class="seg"><button class="${myTab==='active'?'on':''}" data-tab="active">Active</button><button class="${myTab==='completed'?'on':''}" data-tab="completed">Completed</button></div></div>
+        <div class="thead"><div># Course · Talent</div><div>Completed</div><div>Status</div></div>
+        <div id="courseRows"></div>
+      </div>
     </div>
-    <div class="card"><h3 style="margin-top:0">Course per kategori</h3>${catBars()}</div>
+    <div class="col">
+      <div class="card"><div class="cal-top"><h2 style="margin:0" id="calTitle">Kalender</h2><div class="nav"><button id="prevM">‹</button><button id="nextM">›</button></div></div><div class="cal" id="cal"></div></div>
+      <div class="card"><h2>Upcoming</h2><div id="upList"></div></div>
+    </div>
   </div>`;
 }
-function stat(l,v,s){return `<div class="card stat"><div class="label">${l}</div><div class="value">${v}</div><div class="sub">${s}</div></div>`}
-function badge(p){const cls=p===100?'done':p>0?'prog':'todo';const txt=p===100?'Selesai':p>0?p+'%':'Belum';return `<span class="pill ${cls}">${txt}</span>`}
-function catBars(){const map={};CATS.forEach(c=>map[c]=0);DB.courses.forEach(c=>map[c.cat]=(map[c.cat]||0)+1);const max=Math.max(1,...Object.values(map));return Object.entries(map).filter(([,n])=>n>0).map(([c,n])=>`<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:12px"><span>${c}</span><span class="muted">${n}</span></div><div class="bar"><span style="width:${n/max*100}%"></span></div></div>`).join('');}
+function dashData(){
+  let modTot=0,modDone=0,qTot=0,qDone=0,cDone=0;
+  DB.enroll.forEach(e=>{const c=courseById(e.cid);if(!c)return;modTot+=c.modules.length;modDone+=(e.done||[]).length;if(c.quiz.length){qTot++;if(e.score!=null)qDone++;}if(prog(e)===100)cDone++;});
+  return {
+    lessons:{n:modDone,tot:modTot,pct:modTot?Math.round(modDone/modTot*100):0},
+    quiz:{n:qDone,tot:qTot,pct:qTot?Math.round(qDone/qTot*100):0},
+    courses:{n:cDone,tot:DB.enroll.length,pct:DB.enroll.length?Math.round(cDone/DB.enroll.length*100):0}
+  };
+}
+function statCard(cls,ic,num,label,sub,pct,color){return `<div class="stat ${cls}"><div><div class="badge-ic">${ic}</div><div class="bignum">${num}</div><div class="lbl">${label}</div><div class="sub">${sub}</div></div><div class="ring" style="background:conic-gradient(${color} ${pct}%,#fff 0)"><div class="in">${pct}%</div></div></div>`;}
+function renderNow(){
+  const e=DB.enroll.find(x=>prog(x)<100)||DB.enroll[0];
+  const el=document.getElementById('nowCard');
+  if(!e){el.innerHTML='<span class="muted">Belum ada enrollment.</span>';return;}
+  const c=courseById(e.cid),t=talentById(e.tid),p=prog(e);
+  el.innerHTML=`<span class="thumb"></span><div class="info"><b>${c.title}</b> <span class="muted" style="font-size:12px">· ${t.name}</span><div class="line"><span style="width:${p}%"></span></div></div><div class="counts"><span>📄 ${c.modules.length}</span><span>📝 ${c.quiz.length}</span></div><button class="resume" onclick="render('progress')">▶ Resume</button>`;
+}
+function renderCourseRows(){
+  const rows=DB.enroll.map((e,i)=>({e,i,p:prog(e)})).filter(r=>myTab==='active'?r.p<100:r.p===100);
+  document.getElementById('courseRows').innerHTML=rows.length?rows.map(r=>{const c=courseById(r.e.cid),t=talentById(r.e.tid),col=colorFor(r.i);return `<div class="crow"><div class="name"><span class="cico" style="background:linear-gradient(135deg,${col},#ffffff88)"></span><div>${c.title}<div class="muted" style="font-weight:400;font-size:11px">${t.name}</div></div></div><div class="cbar"><span style="width:${r.p}%;background:${col}"></span></div><div class="counts"><span>📄 ${(r.e.done||[]).length}/${c.modules.length}</span><span>📝 ${r.e.score!=null?r.e.score+'%':'-'}</span></div></div>`;}).join(''):'<p class="muted" style="padding:12px 0">Tidak ada course di tab ini.</p>';
+}
+const DN=['Mo','Tu','We','Th','Fr','Sa','Su'];
+const MN=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+let curD=new Date();let viewD=new Date(curD.getFullYear(),curD.getMonth(),1);
+function renderCal(){
+  const y=viewD.getFullYear(),m=viewD.getMonth();
+  let html=DN.map(d=>`<div class="dn">${d}</div>`).join('');
+  let first=new Date(y,m,1).getDay();first=(first===0?7:first)-1;
+  const days=new Date(y,m+1,0).getDate();
+  for(let i=0;i<first;i++)html+='<div class="day mut"></div>';
+  for(let d=1;d<=days;d++){const today=(d===curD.getDate()&&m===curD.getMonth()&&y===curD.getFullYear());const range=(d>curD.getDate()&&d<=curD.getDate()+4&&m===curD.getMonth()&&y===curD.getFullYear());let cls='day';if(today)cls+=' today';else if(range)cls+=' range';html+=`<div class="${cls}">${d}</div>`;}
+  document.getElementById('cal').innerHTML=html;
+  document.getElementById('calTitle').textContent=MN[m]+' '+y;
+}
+function renderUpcoming(){
+  const items=DB.enroll.map((e,i)=>({e,i,p:prog(e)})).filter(r=>r.p<100).slice(0,4);
+  const d=curD.getDate();
+  document.getElementById('upList').innerHTML=items.length?items.map((r,k)=>{const c=courseById(r.e.cid),t=talentById(r.e.tid),col=colorFor(r.i);const nextMod=c.modules[(r.e.done||[]).length]||'Review';return `<div class="up"><div class="datechip"><b>${d+k}</b><small>${MN[curD.getMonth()].slice(0,3)}</small></div><div class="t"><b>${nextMod}</b><small><span class="tagdot" style="background:${col}"></span>${t.name} · ${c.title}</small></div></div>`;}).join(''):'<p class="muted">Semua course selesai 🎉</p>';
+}
 
+// ===== COURSES =====
 function vCourses(){
-  return head('Courses','Katalog materi pembinaan creator','<button class="btn" id="addCourse">+ Course</button>')+
-  `<div class="toolbar"><input id="cSearch" placeholder="Cari course..."/><select id="cCat"><option value="">Semua kategori</option>${CATS.map(c=>`<option>${c}</option>`).join('')}</select><select id="cLv"><option value="">Semua level</option>${LEVELS.map(l=>`<option>${l}</option>`).join('')}</select></div>
-  <div class="grid col3" id="cList"></div>`;
+  return `<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><h2 style="margin:0">Katalog Course</h2><button class="btn" id="addCourse">+ Course</button></div>
+  <div class="toolbar" style="margin-top:14px"><input id="cSearch" placeholder="Cari course..."/><select id="cCat"><option value="">Semua kategori</option>${CATS.map(c=>`<option>${c}</option>`).join('')}</select><select id="cLv"><option value="">Semua level</option>${LEVELS.map(l=>`<option>${l}</option>`).join('')}</select></div>
+  <div class="grid col3" id="cList"></div></div>`;
 }
 function courseList(){
   const q=(document.getElementById('cSearch').value||'').toLowerCase();
   const cat=document.getElementById('cCat').value,lv=document.getElementById('cLv').value;
   const list=DB.courses.filter(c=>(!q||c.title.toLowerCase().includes(q))&&(!cat||c.cat===cat)&&(!lv||c.level===lv));
   const el=document.getElementById('cList');
-  el.innerHTML=list.length?list.map(c=>`<div class="card course-card"><h3>${c.title}</h3><div style="margin-bottom:8px"><span class="tag lv ${c.level}">${c.level}</span><span class="tag">${c.cat}</span><span class="tag">${c.hours} jam</span></div><p class="muted" style="font-size:13px">${c.desc}</p><p class="muted" style="font-size:12px">${c.modules.length} modul • ${c.quiz.length} quiz</p><div class="row"><button class="btn sm ghost" data-edit="${c.id}">Edit</button><button class="btn sm ghost" data-del="${c.id}">Hapus</button></div></div>`).join(''):'<p class="muted">Tidak ada course.</p>';
+  el.innerHTML=list.length?list.map(c=>`<div class="card" style="background:#f9fafc"><h3 style="font-size:15px;margin-bottom:8px">${c.title}</h3><div style="margin-bottom:8px"><span class="tag lv ${c.level}">${c.level}</span><span class="tag">${c.cat}</span><span class="tag">${c.hours} jam</span></div><p class="muted" style="font-size:13px">${c.desc}</p><p class="muted" style="font-size:12px;margin:6px 0">${c.modules.length} modul • ${c.quiz.length} quiz</p><div class="row"><button class="btn sm ghost" data-edit="${c.id}">Edit</button><button class="btn sm ghost" data-del="${c.id}">Hapus</button></div></div>`).join(''):'<p class="muted">Tidak ada course.</p>';
   el.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>courseForm(b.dataset.edit));
   el.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{if(confirm('Hapus course ini?')){DB.courses=DB.courses.filter(x=>x.id!==b.dataset.del);DB.enroll=DB.enroll.filter(e=>e.cid!==b.dataset.del);save();courseList();}});
 }
@@ -182,118 +275,93 @@ function courseForm(cid){
   const c=cid?courseById(cid):{title:'',cat:CATS[0],level:'Basic',hours:1,desc:'',modules:[],quiz:[]};
   openModal(`<h2>${cid?'Edit':'Tambah'} Course</h2>
   <div class="field"><label>Judul</label><input id="fTitle" value="${esc(c.title)}"/></div>
-  <div class="row"><div class="field"><label>Kategori</label><select id="fCat">${CATS.map(x=>`<option ${x===c.cat?'selected':''}>${x}</option>`).join('')}</select></div>
-  <div class="field"><label>Level</label><select id="fLv">${LEVELS.map(x=>`<option ${x===c.level?'selected':''}>${x}</option>`).join('')}</select></div>
-  <div class="field"><label>Durasi (jam)</label><input id="fHours" type="number" min="1" value="${c.hours}"/></div></div>
+  <div class="row"><div class="field"><label>Kategori</label><select id="fCat">${CATS.map(x=>`<option ${x===c.cat?'selected':''}>${x}</option>`).join('')}</select></div><div class="field"><label>Level</label><select id="fLv">${LEVELS.map(x=>`<option ${x===c.level?'selected':''}>${x}</option>`).join('')}</select></div><div class="field"><label>Durasi (jam)</label><input id="fHours" type="number" min="1" value="${c.hours}"/></div></div>
   <div class="field"><label>Deskripsi</label><textarea id="fDesc" rows="2">${esc(c.desc)}</textarea></div>
   <div class="field"><label>Modul (satu per baris)</label><textarea id="fMods" rows="4">${esc(c.modules.join('\n'))}</textarea></div>
   <div class="actions"><button class="btn ghost" onclick="closeModal()">Batal</button><button class="btn" id="saveCourse">Simpan</button></div>`);
-  document.getElementById('saveCourse').onclick=()=>{
-    const mods=document.getElementById('fMods').value.split('\n').map(s=>s.trim()).filter(Boolean);
-    const data={title:val('fTitle'),cat:val('fCat'),level:val('fLv'),hours:+val('fHours')||1,desc:val('fDesc'),modules:mods,quiz:c.quiz||[]};
-    if(!data.title){alert('Judul wajib diisi');return;}
-    if(cid){Object.assign(courseById(cid),data);}else{DB.courses.push({id:id(),...data});}
-    save();closeModal();courseList();
-  };
+  document.getElementById('saveCourse').onclick=()=>{const mods=document.getElementById('fMods').value.split('\n').map(s=>s.trim()).filter(Boolean);const data={title:val('fTitle'),cat:val('fCat'),level:val('fLv'),hours:+val('fHours')||1,desc:val('fDesc'),modules:mods,quiz:c.quiz||[]};if(!data.title){alert('Judul wajib diisi');return;}if(cid){Object.assign(courseById(cid),data);}else{DB.courses.push({id:id(),...data});}save();closeModal();courseList();};
 }
 
+// ===== TALENT =====
 function vTalents(){
-  return head('Talent','Creator yang dikelola MCN','<button class="btn" id="addTalent">+ Talent</button>')+
-  `<div class="card"><table><tr><th>Nama</th><th>Platform</th><th>Niche</th><th>Tier</th><th>Course diikuti</th><th></th></tr>
-  ${DB.talents.map(t=>{const en=DB.enroll.filter(e=>e.tid===t.id);return `<tr><td><b>${t.name}</b></td><td><span class="tag">${t.platform}</span></td><td>${t.niche}</td><td><span class="tag">${t.tier}</span></td><td>${en.length}</td><td class="center"><button class="btn sm ghost" data-et="${t.id}">Edit</button> <button class="btn sm ghost" data-dt="${t.id}">Hapus</button></td></tr>`}).join('')}
-  </table></div>`;
+  return `<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><h2 style="margin:0">Talent / Creator</h2><button class="btn" id="addTalent">+ Talent</button></div>
+  <table><tr><th>Nama</th><th>Platform</th><th>Niche</th><th>Tier</th><th>Course</th><th></th></tr>${DB.talents.map(t=>{const en=DB.enroll.filter(e=>e.tid===t.id);return `<tr><td><b>${t.name}</b></td><td><span class="tag">${t.platform}</span></td><td>${t.niche}</td><td><span class="tag">${t.tier}</span></td><td>${en.length}</td><td class="center"><button class="btn sm ghost" data-et="${t.id}">Edit</button> <button class="btn sm ghost" data-dt="${t.id}">Hapus</button></td></tr>`}).join('')}</table></div>`;
 }
 function talentForm(tid){
   const t=tid?talentById(tid):{name:'',platform:PLATFORMS[0],niche:'',tier:'Baru'};
   openModal(`<h2>${tid?'Edit':'Tambah'} Talent</h2>
   <div class="field"><label>Nama</label><input id="tName" value="${esc(t.name)}"/></div>
-  <div class="row"><div class="field"><label>Platform</label><select id="tPlat">${PLATFORMS.map(x=>`<option ${x===t.platform?'selected':''}>${x}</option>`).join('')}</select></div>
-  <div class="field"><label>Tier</label><select id="tTier">${TIERS.map(x=>`<option ${x===t.tier?'selected':''}>${x}</option>`).join('')}</select></div></div>
+  <div class="row"><div class="field"><label>Platform</label><select id="tPlat">${PLATFORMS.map(x=>`<option ${x===t.platform?'selected':''}>${x}</option>`).join('')}</select></div><div class="field"><label>Tier</label><select id="tTier">${TIERS.map(x=>`<option ${x===t.tier?'selected':''}>${x}</option>`).join('')}</select></div></div>
   <div class="field"><label>Niche</label><input id="tNiche" value="${esc(t.niche)}"/></div>
   <div class="actions"><button class="btn ghost" onclick="closeModal()">Batal</button><button class="btn" id="saveTalent">Simpan</button></div>`);
-  document.getElementById('saveTalent').onclick=()=>{
-    const data={name:val('tName'),platform:val('tPlat'),niche:val('tNiche'),tier:val('tTier')};
-    if(!data.name){alert('Nama wajib diisi');return;}
-    if(tid){Object.assign(talentById(tid),data);}else{DB.talents.push({id:id(),...data});}
-    save();closeModal();render('talents');
-  };
+  document.getElementById('saveTalent').onclick=()=>{const data={name:val('tName'),platform:val('tPlat'),niche:val('tNiche'),tier:val('tTier')};if(!data.name){alert('Nama wajib diisi');return;}if(tid){Object.assign(talentById(tid),data);}else{DB.talents.push({id:id(),...data});}save();closeModal();render('talents');};
 }
 
+// ===== PROGRESS =====
 function vProgress(){
-  return head('Progress','Assign course & tracking penyelesaian','<button class="btn" id="assign">+ Assign Course</button>')+
-  `<div class="card">${DB.enroll.length?`<table><tr><th>Talent</th><th>Course</th><th>Modul selesai</th><th>Progress</th><th>Quiz</th><th></th></tr>${DB.enroll.map((e,i)=>{const c=courseById(e.cid),t=talentById(e.tid);if(!c||!t)return '';const p=enrollProgress(e,c);return `<tr><td><b>${t.name}</b></td><td>${c.title}</td><td>${(e.done||[]).length}/${c.modules.length}</td><td>${badge(p)}</td><td>${e.score!=null?e.score+'%':'<span class="muted">-</span>'}</td><td class="center"><button class="btn sm" data-open="${i}">Buka</button> <button class="btn sm ghost" data-unen="${i}">✕</button></td></tr>`}).join('')}</table>`:'<p class="muted">Belum ada enrollment.</p>'}</div>`;
+  return `<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><h2 style="margin:0">Progress & Enrollment</h2><button class="btn" id="assign">+ Assign Course</button></div>
+  ${DB.enroll.length?`<table><tr><th>Talent</th><th>Course</th><th>Modul</th><th>Progress</th><th>Quiz</th><th></th></tr>${DB.enroll.map((e,i)=>{const c=courseById(e.cid),t=talentById(e.tid);if(!c||!t)return '';const p=prog(e);const cls=p===100?'done':p>0?'prog':'todo';const txt=p===100?'Selesai':p>0?p+'%':'Belum';return `<tr><td><b>${t.name}</b></td><td>${c.title}</td><td>${(e.done||[]).length}/${c.modules.length}</td><td><span class="pill ${cls}">${txt}</span></td><td>${e.score!=null?e.score+'%':'<span class="muted">-</span>'}</td><td class="center"><button class="btn sm" data-open="${i}">Buka</button> <button class="btn sm ghost" data-unen="${i}">✕</button></td></tr>`}).join('')}</table>`:'<p class="muted">Belum ada enrollment.</p>'}</div>`;
 }
 function assignForm(){
-  openModal(`<h2>Assign Course</h2>
-  <div class="field"><label>Talent</label><select id="aT">${DB.talents.map(t=>`<option value="${t.id}">${t.name}</option>`).join('')}</select></div>
-  <div class="field"><label>Course</label><select id="aC">${DB.courses.map(c=>`<option value="${c.id}">${c.title}</option>`).join('')}</select></div>
-  <div class="actions"><button class="btn ghost" onclick="closeModal()">Batal</button><button class="btn" id="saveAssign">Assign</button></div>`);
-  document.getElementById('saveAssign').onclick=()=>{
-    const tid=val('aT'),cid=val('aC');
-    if(getEnroll(tid,cid)){alert('Talent sudah di-assign course ini');return;}
-    DB.enroll.push({tid,cid,done:[],score:null});save();closeModal();render('progress');
-  };
+  openModal(`<h2>Assign Course</h2><div class="field"><label>Talent</label><select id="aT">${DB.talents.map(t=>`<option value="${t.id}">${t.name}</option>`).join('')}</select></div><div class="field"><label>Course</label><select id="aC">${DB.courses.map(c=>`<option value="${c.id}">${c.title}</option>`).join('')}</select></div><div class="actions"><button class="btn ghost" onclick="closeModal()">Batal</button><button class="btn" id="saveAssign">Assign</button></div>`);
+  document.getElementById('saveAssign').onclick=()=>{const tid=val('aT'),cid=val('aC');if(getEnroll(tid,cid)){alert('Sudah di-assign');return;}DB.enroll.push({tid,cid,done:[],score:null});save();closeModal();render('progress');};
 }
 function openEnroll(i){
   const e=DB.enroll[i],c=courseById(e.cid),t=talentById(e.tid);
-  openModal(`<h2>${t.name} — ${c.title}</h2>
-  <p class="muted">Centang modul yang sudah diselesaikan.</p>
-  <div id="mods">${c.modules.map((m,mi)=>`<label class="check"><input type="checkbox" ${(e.done||[]).includes(mi)?'checked':''} data-m="${mi}"/> ${m}</label>`).join('')}</div>
-  ${c.quiz.length?`<button class="btn ghost" id="startQuiz" style="margin-top:6px">📝 Kerjakan Quiz (${c.quiz.length} soal)</button>`:''}
-  <div class="actions"><button class="btn" onclick="closeModal()">Selesai</button></div>`);
-  document.querySelectorAll('#mods input').forEach(ch=>ch.onchange=()=>{
-    const mi=+ch.dataset.m;e.done=e.done||[];
-    if(ch.checked){if(!e.done.includes(mi))e.done.push(mi);}else{e.done=e.done.filter(x=>x!==mi);}
-    save();
-  });
+  openModal(`<h2>${t.name} — ${c.title}</h2><p class="muted" style="margin-bottom:10px">Centang modul yang selesai.</p><div id="mods">${c.modules.map((m,mi)=>`<label class="check"><input type="checkbox" ${(e.done||[]).includes(mi)?'checked':''} data-m="${mi}"/> ${m}</label>`).join('')}</div>${c.quiz.length?`<button class="btn ghost" id="startQuiz" style="margin-top:6px">📝 Kerjakan Quiz</button>`:''}<div class="actions"><button class="btn" onclick="closeModal();render('progress')">Selesai</button></div>`);
+  document.querySelectorAll('#mods input').forEach(ch=>ch.onchange=()=>{const mi=+ch.dataset.m;e.done=e.done||[];if(ch.checked){if(!e.done.includes(mi))e.done.push(mi);}else{e.done=e.done.filter(x=>x!==mi);}save();});
   const sq=document.getElementById('startQuiz');if(sq)sq.onclick=()=>quiz(i);
 }
 function quiz(i){
   const e=DB.enroll[i],c=courseById(e.cid);
   openModal(`<h2>Quiz — ${c.title}</h2><form id="qForm">${c.quiz.map((q,qi)=>`<div class="quiz-q"><b>${qi+1}. ${q.q}</b>${q.opts.map((o,oi)=>`<label class="opt"><input type="radio" name="q${qi}" value="${oi}"/> ${o}</label>`).join('')}</div>`).join('')}</form><div class="actions"><button class="btn ghost" onclick="closeModal()">Batal</button><button class="btn" id="submitQuiz">Submit</button></div>`);
-  document.getElementById('submitQuiz').onclick=()=>{
-    let correct=0;c.quiz.forEach((q,qi)=>{const sel=document.querySelector(`input[name=q${qi}]:checked`);if(sel&&+sel.value===q.a)correct++;});
-    const score=Math.round(correct/c.quiz.length*100);e.score=score;save();
-    alert('Nilai kamu: '+score+'% ('+correct+'/'+c.quiz.length+')');closeModal();render('progress');
-  };
+  document.getElementById('submitQuiz').onclick=()=>{let correct=0;c.quiz.forEach((q,qi)=>{const sel=document.querySelector('input[name=q'+qi+']:checked');if(sel&&+sel.value===q.a)correct++;});const score=Math.round(correct/c.quiz.length*100);e.score=score;save();alert('Nilai: '+score+'% ('+correct+'/'+c.quiz.length+')');closeModal();render('progress');};
 }
 
+// ===== PATH =====
 function vPath(){
   const paths={Baru:['Onboarding Talent MCN','Content Strategy 101','Editing Cepat untuk Short Video'],Growing:['Algoritma TikTok & Reels','Monetisasi Creator','Personal Branding'],Pro:['Brand Deal & Negosiasi','Kontrak & Hak Cipta','Monetisasi Creator']};
-  return head('Learning Path','Jalur belajar rekomendasi per tier talent')+
-  `<div class="grid col3">${TIERS.map(tier=>`<div class="card"><h3 style="margin-top:0">Tier ${tier}</h3><ol style="padding-left:18px;color:var(--muted);font-size:13px">${paths[tier].map(p=>`<li style="margin-bottom:8px;color:var(--text)">${p}</li>`).join('')}</ol></div>`).join('')}</div>
-  <div class="card" style="margin-top:16px"><p class="muted" style="margin:0">💡 Talent tier <b>Baru</b> fokus fondasi (onboarding, strategi, editing). <b>Growing</b> mendalami distribusi & monetisasi. <b>Pro</b> fokus deal besar & aspek legal.</p></div>`;
+  return `<div class="grid col3">${TIERS.map(tier=>`<div class="card"><h2 style="margin:0 0 10px">Tier ${tier}</h2><ol style="padding-left:18px;font-size:13px">${paths[tier].map(p=>`<li style="margin-bottom:8px">${p}</li>`).join('')}</ol></div>`).join('')}</div><div class="card" style="margin-top:20px"><p class="muted" style="margin:0">💡 Tier <b>Baru</b> fokus fondasi • <b>Growing</b> distribusi & monetisasi • <b>Pro</b> deal besar & legal.</p></div>`;
 }
 
+// ===== REPORTS =====
 function vReports(){
-  const rows=DB.enroll.map(e=>{const c=courseById(e.cid),t=talentById(e.tid);if(!c||!t)return null;return {talent:t.name,platform:t.platform,tier:t.tier,course:c.title,cat:c.cat,progress:enrollProgress(e,c),score:e.score!=null?e.score:''};}).filter(Boolean);
-  const byTalent={};rows.forEach(r=>{byTalent[r.talent]=byTalent[r.talent]||[];byTalent[r.talent].push(r.progress);});
-  return head('Reports','Rekap pembinaan & export data','<button class="btn" id="exportCsv">⬇ Export CSV</button>')+
-  `<div class="grid col2"><div class="card"><h3 style="margin-top:0">Rata-rata progress per talent</h3>${Object.keys(byTalent).length?Object.entries(byTalent).map(([n,ps])=>{const a=Math.round(ps.reduce((x,y)=>x+y,0)/ps.length);return `<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:13px"><span>${n}</span><span class="muted">${a}%</span></div><div class="bar"><span style="width:${a}%"></span></div></div>`}).join(''):'<p class="muted">Belum ada data.</p>'}</div>
-  <div class="card"><h3 style="margin-top:0">Ringkasan</h3><p class="muted" style="font-size:13px">Total enrollment: <b style="color:var(--text)">${rows.length}</b></p><p class="muted" style="font-size:13px">Course selesai: <b style="color:var(--text)">${rows.filter(r=>r.progress===100).length}</b></p><p class="muted" style="font-size:13px">Rata-rata nilai quiz: <b style="color:var(--text)">${(()=>{const s=rows.filter(r=>r.score!=='');return s.length?Math.round(s.reduce((a,r)=>a+r.score,0)/s.length)+'%':'-'})()}</b></p></div></div>
-  <div class="card" style="margin-top:16px"><table><tr><th>Talent</th><th>Course</th><th>Kategori</th><th>Progress</th><th>Nilai</th></tr>${rows.map(r=>`<tr><td>${r.talent}</td><td>${r.course}</td><td>${r.cat}</td><td>${badge(r.progress)}</td><td>${r.score!==''?r.score+'%':'-'}</td></tr>`).join('')||'<tr><td colspan=5 class="muted">Belum ada data</td></tr>'}</table></div>`;
+  const rows=DB.enroll.map(e=>{const c=courseById(e.cid),t=talentById(e.tid);if(!c||!t)return null;return {talent:t.name,course:c.title,cat:c.cat,progress:prog(e),score:e.score!=null?e.score:''};}).filter(Boolean);
+  const byTalent={};rows.forEach(r=>{(byTalent[r.talent]=byTalent[r.talent]||[]).push(r.progress);});
+  return `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><h2 style="margin:0">Reports</h2><button class="btn" id="exportCsv">⬇ Export CSV</button></div>
+  <div class="grid col2"><div class="card"><h2>Rata-rata progress / talent</h2>${Object.keys(byTalent).length?Object.entries(byTalent).map(([n,ps])=>{const a=Math.round(ps.reduce((x,y)=>x+y,0)/ps.length);return `<div style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;font-size:13px"><span>${n}</span><span class="muted">${a}%</span></div><div class="cbar" style="margin-top:6px"><span style="width:${a}%;background:var(--purple)"></span></div></div>`}).join(''):'<p class="muted">Belum ada data.</p>'}</div>
+  <div class="card"><h2>Ringkasan</h2><p class="muted" style="font-size:13px">Total enrollment: <b style="color:var(--ink)">${rows.length}</b></p><p class="muted" style="font-size:13px">Course selesai: <b style="color:var(--ink)">${rows.filter(r=>r.progress===100).length}</b></p><p class="muted" style="font-size:13px">Rata-rata quiz: <b style="color:var(--ink)">${(()=>{const s=rows.filter(r=>r.score!=='');return s.length?Math.round(s.reduce((a,r)=>a+r.score,0)/s.length)+'%':'-'})()}</b></p></div></div>
+  <div class="card" style="margin-top:20px"><table><tr><th>Talent</th><th>Course</th><th>Kategori</th><th>Progress</th><th>Nilai</th></tr>${rows.map(r=>{const cls=r.progress===100?'done':r.progress>0?'prog':'todo';return `<tr><td>${r.talent}</td><td>${r.course}</td><td>${r.cat}</td><td><span class="pill ${cls}">${r.progress}%</span></td><td>${r.score!==''?r.score+'%':'-'}</td></tr>`}).join('')||'<tr><td colspan=5 class="muted">Belum ada data</td></tr>'}</table></div>`;
 }
 function exportCsv(){
-  const rows=[['Talent','Platform','Tier','Course','Kategori','Progress %','Nilai %']];
-  DB.enroll.forEach(e=>{const c=courseById(e.cid),t=talentById(e.tid);if(c&&t)rows.push([t.name,t.platform,t.tier,c.title,c.cat,enrollProgress(e,c),e.score!=null?e.score:'']);});
-  const csv=rows.map(r=>r.map(x=>`"${String(x).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const rows=[['Talent','Course','Kategori','Progress %','Nilai %']];
+  DB.enroll.forEach(e=>{const c=courseById(e.cid),t=talentById(e.tid);if(c&&t)rows.push([t.name,c.title,c.cat,prog(e),e.score!=null?e.score:'']);});
+  const csv=rows.map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\n');
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='report_lms_mcn.csv';a.click();
 }
 
-// BIND per view
+// ===== BIND =====
 function bind(v){
-  if(v==='courses'){document.getElementById('addCourse').onclick=()=>courseForm();['cSearch','cCat','cLv'].forEach(idn=>document.getElementById(idn).oninput=courseList);courseList();}
+  if(v==='dashboard'){
+    document.getElementById('statGrid').innerHTML=(()=>{const d=dashData();return statCard('peach','📖',d.lessons.n,'Lessons','of '+d.lessons.tot+' completed',d.lessons.pct,'var(--peach2)')+statCard('pink','📝',d.quiz.n,'Quiz','of '+d.quiz.tot+' taken',d.quiz.pct,'var(--pink2)')+statCard('green','🎓',d.courses.n,'Courses','of '+d.courses.tot+' done',d.courses.pct,'var(--green2)');})();
+    renderNow();renderCourseRows();renderCal();renderUpcoming();
+    document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{myTab=b.dataset.tab;document.querySelectorAll('.seg button').forEach(x=>x.classList.remove('on'));b.classList.add('on');renderCourseRows();});
+    document.getElementById('prevM').onclick=()=>{viewD.setMonth(viewD.getMonth()-1);renderCal();};
+    document.getElementById('nextM').onclick=()=>{viewD.setMonth(viewD.getMonth()+1);renderCal();};
+  }
+  if(v==='courses'){document.getElementById('addCourse').onclick=()=>courseForm();['cSearch','cCat','cLv'].forEach(x=>document.getElementById(x).oninput=courseList);courseList();}
   if(v==='talents'){document.getElementById('addTalent').onclick=()=>talentForm();document.querySelectorAll('[data-et]').forEach(b=>b.onclick=()=>talentForm(b.dataset.et));document.querySelectorAll('[data-dt]').forEach(b=>b.onclick=()=>{if(confirm('Hapus talent?')){DB.talents=DB.talents.filter(x=>x.id!==b.dataset.dt);DB.enroll=DB.enroll.filter(e=>e.tid!==b.dataset.dt);save();render('talents');}});}
   if(v==='progress'){document.getElementById('assign').onclick=assignForm;document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>openEnroll(+b.dataset.open));document.querySelectorAll('[data-unen]').forEach(b=>b.onclick=()=>{if(confirm('Batalkan enrollment?')){DB.enroll.splice(+b.dataset.unen,1);save();render('progress');}});}
   if(v==='reports'){document.getElementById('exportCsv').onclick=exportCsv;}
 }
 
 // utils
-function val(idn){return document.getElementById(idn).value.trim();}
+function val(x){return document.getElementById(x).value.trim();}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function openModal(html){document.getElementById('modalBox').innerHTML=html;document.getElementById('modal').classList.add('open');}
 function closeModal(){document.getElementById('modal').classList.remove('open');}
 document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')closeModal();};
+document.getElementById('globalSearch').addEventListener('keydown',e=>{if(e.key==='Enter'){render('courses');setTimeout(()=>{const s=document.getElementById('cSearch');if(s){s.value=e.target.value;courseList();}},0);}});
 
 render('dashboard');
 </script>
